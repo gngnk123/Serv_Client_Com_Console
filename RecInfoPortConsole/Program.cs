@@ -64,9 +64,7 @@ namespace RecInfoPortConsole
 
                 ReturnData = System.Text.Encoding.ASCII.GetString(InStream);
 
-                Readdata = ReturnData;
-                var textBox4 = Readdata;
-                Console.WriteLine(textBox4);
+                Console.WriteLine(ReturnData);
 
         }
 
