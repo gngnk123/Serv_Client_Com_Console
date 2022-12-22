@@ -16,42 +16,36 @@ namespace RecInfoPortConsole
         TcpClient ClientSocket = new TcpClient();
         NetworkStream ServerStream = default(NetworkStream);
         String Readdata = null;
-        //public IAsyncResult BeginConnect(System.Net.IPAddress[] addresses, int port, AsyncCallback? requestCallback, object? state)
-        //{
-        //    addresses ={'127.0.0.1'};
-        //    port = 23;
-        //    TcpClient client = ClientSocket;
-        //    return client;
-        //}
+
         static void Main(string[] args)
         {
 
                                                         //udp 
-            IPEndPoint localpt = new IPEndPoint(IPAddress.Loopback, 4023);
+            //IPEndPoint localpt = new IPEndPoint(IPAddress.Loopback, 4023);
 
-            ThreadPool.QueueUserWorkItem(delegate
-            {
-                UdpClient udpServer = new UdpClient();
-                udpServer.ExclusiveAddressUse = false;
-                udpServer.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                udpServer.Client.Bind(localpt);
+            //ThreadPool.QueueUserWorkItem(delegate
+            //{
+            //    UdpClient udpServer = new UdpClient();
+            //    udpServer.ExclusiveAddressUse = false;
+            //    udpServer.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            //    udpServer.Client.Bind(localpt);
 
-                IPEndPoint inEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                Console.WriteLine("Listening on " + localpt + ".");
-                byte[] buffer = udpServer.Receive(ref inEndPoint);
-                Console.WriteLine("Receive from " + inEndPoint + " " + Encoding.ASCII.GetString(buffer) + ".");
-            });
+            //    IPEndPoint inEndPoint = new IPEndPoint(IPAddress.Any, 0);
+            //    Console.WriteLine("Listening on " + localpt + ".");
+            //    byte[] buffer = udpServer.Receive(ref inEndPoint);
+            //    Console.WriteLine("Receive from " + inEndPoint + " " + Encoding.ASCII.GetString(buffer) + ".");
+            //});
 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
-            UdpClient udpServer2 = new UdpClient();
-            udpServer2.ExclusiveAddressUse = false;
-            udpServer2.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            udpServer2.Client.Bind(localpt);
+            //UdpClient udpServer2 = new UdpClient();
+            //udpServer2.ExclusiveAddressUse = false;
+            //udpServer2.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            //udpServer2.Client.Bind(localpt);
 
-            udpServer2.Send(new byte[] { 0x41 }, 1, localpt);
+            //udpServer2.Send(new byte[] { 0x41 }, 1, localpt);
 
-            Console.Read();
+            //Console.Read();
 
 
             Program p = new Program();
