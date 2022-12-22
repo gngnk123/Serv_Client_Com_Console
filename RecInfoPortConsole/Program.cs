@@ -36,14 +36,31 @@ namespace RecInfoPortConsole
                     if (Command == "i" || Command == "I")
                     {
                     p.ReadMassage();
-                        //Thread thr = new Thread(new ThreadStart(p.ReadMassage));
-                        //thr.Start();
-                    }
+                    //Thread thr = new Thread(new ThreadStart(p.ReadMassage));
+                    //thr.Start();
+                }
                     else if (Command == "o" || Command == "O")
                     {
-                        p.OutputMassage();
+                    while (Check == false)
+                    {
+                        Console.WriteLine("Try Again:");
+                        Check = p.Conncect();
                     }
-                    else
+                    //p.OutputMassage();
+                    Console.WriteLine("First massage: ");
+                    var Massage1 = Console.ReadLine();
+                    Console.WriteLine("Secon massage: ");
+                    var Massage2 = Console.ReadLine();
+                    //Thread thr = new Thread(new ThreadStart(p.OutputMassage));
+                    //Thread thr2 = new Thread(new ThreadStart(p.OutputMassage hi));
+                    Thread myNewThread = new Thread(() => p.OutputMassage(Massage1));
+                    myNewThread.Start();
+                    Thread myNewThread2 = new Thread(() => p.OutputMassage(Massage2));
+                    myNewThread2.Start();
+                    //thr.Start(Massage1);
+                    //thr2.Start();
+                    }
+                else
                     {
                         Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
                     }
@@ -90,14 +107,22 @@ namespace RecInfoPortConsole
 
         }
 
-        public void OutputMassage()
+        public void OutputMassage(string massage)
         {
-            Console.WriteLine("Type Output Massage:");
-            var textBox3 = Console.ReadLine();
-            byte[] outstream = Encoding.ASCII.GetBytes(textBox3);
+            //Console.WriteLine("Type Output Massage:");
+            //var textBox3 = Console.ReadLine();
+            var textBox3 =massage;
+            try
+            {
+                byte[] outstream = Encoding.ASCII.GetBytes(textBox3);
+                ServerStream.Write(outstream, 0, outstream.Length);
+                ServerStream.Flush();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong " + e);
+            }
 
-            ServerStream.Write(outstream, 0, outstream.Length);
-            ServerStream.Flush();
         }
         }
 
