@@ -18,35 +18,57 @@ namespace RecInfoPortConsole
         static void Main(string[] args)
         {
 
+            Program p = new Program();
+            Program p2 = new Program();
+            var Check = p.Conncect();
+            //var Check2 = p2.Conncect();
+            while (Check == false)
+            {
+                Console.WriteLine("Try Again:");
+                Check = p.Conncect();
+            }
+          
+
+            while (true)
+                {
+                    Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
+                    var Command = Console.ReadLine();
+                    if (Command == "i" || Command == "I")
+                    {
+                    p.ReadMassage();
+                        //Thread thr = new Thread(new ThreadStart(p.ReadMassage));
+                        //thr.Start();
+                    }
+                    else if (Command == "o" || Command == "O")
+                    {
+                        p.OutputMassage();
+                    }
+                    else
+                    {
+                        Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
+                    }
+                }
+           
+
+        }
+        public bool Conncect()
+        {
             Console.WriteLine("Type IP Address:");
             var textBox1 = Console.ReadLine();
             Console.WriteLine("Type Port Number:");
             var textBox2 = Console.ReadLine();
-            Program p = new Program();
-            p.Conncect(textBox1, textBox2);
-
-            while (true)
+            bool Check;
+            try
             {
-                Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
-                var Command = Console.ReadLine();
-                if (Command == "i" || Command == "I")
-                {
-                    p.ReadMassage();
-                }
-                else if (Command == "o" || Command == "O")
-                {
-                    p.OutputMassage();
-                }
-                else
-                {
-                    Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
-                }
+                ClientSocket.Connect(textBox1, Int32.Parse(textBox2));
+                Check = true;
             }
-
-        }
-        public void Conncect(string textBox1,string textBox2)
-        {
-            ClientSocket.Connect(textBox1, Int32.Parse(textBox2));
+            catch (Exception e)
+            {
+                Console.WriteLine("Invalide IP Address or Port Number " + e);
+                Check = false;
+            }
+            return Check;
         }
 
 
