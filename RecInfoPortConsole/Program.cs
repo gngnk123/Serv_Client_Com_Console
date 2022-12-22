@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -20,17 +21,18 @@ namespace RecInfoPortConsole
 
             Program p = new Program();
             Program p2 = new Program();
-            var Check = p.Conncect();
-            //var Check2 = p2.Conncect();
-            while (Check == false)
+            var Check = p.Conncect();                                                               //kavshiri IP da Portis nomrit
+            //var Check2 = p2.Conncect();       
+            while (Check == false)                                                                  
             {
-                Console.WriteLine("Try Again:");
-                Check = p.Conncect();
+                Console.WriteLine("Try Again,");                                                    //warumatebeli kavshiris shemtxvevashi procesi daiwyeba tavidan
+                Check = p.Conncect();                                                               //manam sanam kavshiri ar shedgeba
             }
           
 
             while (true)
                 {
+                                                                    //consolshi migeba
                     Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
                     var Command = Console.ReadLine();
                     if (Command == "i" || Command == "I")
@@ -38,29 +40,32 @@ namespace RecInfoPortConsole
                     p.ReadMassage();
                     //Thread thr = new Thread(new ThreadStart(p.ReadMassage));
                     //thr.Start();
-                }
+                    }
+                                                                    //consolidan gagzavna
                     else if (Command == "o" || Command == "O")
                     {
-                    while (Check == false)
-                    {
-                        Console.WriteLine("Try Again:");
-                        Check = p.Conncect();
-                    }
+
                     //p.OutputMassage();
-                    Console.WriteLine("First massage: ");
-                    var Massage1 = Console.ReadLine();
-                    Console.WriteLine("Secon massage: ");
-                    var Massage2 = Console.ReadLine();
-                    //Thread thr = new Thread(new ThreadStart(p.OutputMassage));
-                    //Thread thr2 = new Thread(new ThreadStart(p.OutputMassage hi));
-                    Thread myNewThread = new Thread(() => p.OutputMassage(Massage1));
-                    myNewThread.Start();
-                    Thread myNewThread2 = new Thread(() => p.OutputMassage(Massage2));
-                    myNewThread2.Start();
-                    //thr.Start(Massage1);
-                    //thr2.Start();
+                    Console.WriteLine("How many massages do you want to send? : ");
+                    var MassageCount = Console.ReadLine();                                              //mesijebis raodenoba
+                    List<string> primeNumbers = new List<string>();                                     //listi mesijebis shesanaxad
+                    for (int i = 1; i <= Convert.ToInt32(MassageCount); i++)
+                    {
+                        Console.WriteLine("Massage N" + i + ": ");
+                        var Massage = Console.ReadLine();
+                        primeNumbers.Add(Massage);
                     }
-                else
+
+                    foreach (var myObj in primeNumbers)
+                    {
+                        var localCopy = myObj;
+                        Thread myThread = new Thread(() => p.OutputMassage(localCopy));                 //mesijebis gashveba thread-ebit
+                        myThread.Start();                                                               
+                    }
+
+                    }
+                    //else if is dasasruli
+                    else
                     {
                         Console.WriteLine("for InputMassage Press 'i', for OutputMassage Press 'o'");
                     }
@@ -121,6 +126,7 @@ namespace RecInfoPortConsole
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong " + e);
+                
             }
 
         }
