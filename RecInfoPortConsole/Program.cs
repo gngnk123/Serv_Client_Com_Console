@@ -19,9 +19,49 @@ namespace RecInfoPortConsole
 
         static void Main(string[] args)
         {
+                                                //udp
+            // This constructor arbitrarily assigns the local port number.
+            UdpClient udpClient = new UdpClient(23);
+            try
+            {
+                udpClient.Connect("127.0.0.1", 23);
 
-                                                        //udp 
-            //IPEndPoint localpt = new IPEndPoint(IPAddress.Loopback, 4023);
+                // Sends a message to the host to which you have connected.
+                Byte[] sendBytes = Encoding.ASCII.GetBytes("Is anybody there?");                            //send message
+
+                udpClient.Send(sendBytes, sendBytes.Length);
+
+                // Sends a message to a different host using optional hostname and port parameters.
+                    //UdpClient udpClientB = new UdpClient();
+                    //udpClientB.Send(sendBytes, sendBytes.Length, "AlternateHostMachineName", 11000);
+
+
+                //IPEndPoint object will allow us to read datagrams sent from any source.
+                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+
+                // Blocks until a message returns on this socket from a remote host.
+                Byte[] receiveBytes = udpClient.Receive(ref RemoteIpEndPoint);
+                string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+                // Uses the IPEndPoint object to determine which of these two hosts responded.
+                Console.WriteLine("This is the message you received " +
+                                             returnData.ToString());
+                Console.WriteLine("This message was sent from " +
+                                            RemoteIpEndPoint.Address.ToString() +
+                                            " on their port number " +
+                                            RemoteIpEndPoint.Port.ToString());
+
+                udpClient.Close();
+                //udpClientB.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+
+            //udp 
+            //IPEndPoint localpt = new IPEndPoint(IPAddress.Loopback, 23);
 
             //ThreadPool.QueueUserWorkItem(delegate
             //{
@@ -29,7 +69,7 @@ namespace RecInfoPortConsole
             //    udpServer.ExclusiveAddressUse = false;
             //    udpServer.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             //    udpServer.Client.Bind(localpt);
-
+                
             //    IPEndPoint inEndPoint = new IPEndPoint(IPAddress.Any, 0);
             //    Console.WriteLine("Listening on " + localpt + ".");
             //    byte[] buffer = udpServer.Receive(ref inEndPoint);
@@ -104,14 +144,14 @@ namespace RecInfoPortConsole
         }
         public bool Conncect()
         {
-            Console.WriteLine("Type IP Address:");
+            Console.WriteLine("'TCP' Type IP Address:");
             var textBox1 = Console.ReadLine();
             Console.WriteLine("Type Port Number:");
             var textBox2 = Console.ReadLine();
             bool Check;
             try
             {
-                ClientSocket.Connect(textBox1, Int32.Parse(textBox2));
+                ClientSocket.Connect(textBox1, Int32.Parse(textBox2));                                  //tcp connection
                 Check = true;
             }
             catch (Exception e)
@@ -131,7 +171,7 @@ namespace RecInfoPortConsole
                 Console.WriteLine("Waiting InputMassage: ");
                 ServerStream = ClientSocket.GetStream();
                 var Buffsize = ClientSocket.ReceiveBufferSize;
-                byte[] InStream = new byte[Buffsize];
+                byte[] InStream = new byte[Buffsize];                                                   
 
                 ServerStream.Read(InStream, 0, Buffsize);
 
