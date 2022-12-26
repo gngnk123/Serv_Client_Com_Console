@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecInfoPortConsole", "RecInfoPortConsole\RecInfoPortConsole.csproj", "{5951687B-EBDE-435A-AB39-8BCB058A1E90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecInfoPortConsole2", "RecInfoPortConsole2\RecInfoPortConsole2.csproj", "{F29AE95B-AD1C-42E5-B5B2-36DA93DECFEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5951687B-EBDE-435A-AB39-8BCB058A1E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5951687B-EBDE-435A-AB39-8BCB058A1E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5951687B-EBDE-435A-AB39-8BCB058A1E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F29AE95B-AD1C-42E5-B5B2-36DA93DECFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F29AE95B-AD1C-42E5-B5B2-36DA93DECFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F29AE95B-AD1C-42E5-B5B2-36DA93DECFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F29AE95B-AD1C-42E5-B5B2-36DA93DECFEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
